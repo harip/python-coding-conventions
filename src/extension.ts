@@ -45,7 +45,8 @@ export function activate(context: vscode.ExtensionContext) {
 
             if (op!=="="){
                 range=new vscode.Range(0,eqOperatorIndex,0,eqOperatorIndex+1);
-                e.replace(range,op);                
+                e.replace(range,op);       
+                line=doc.lineAt(0).text;         
             }
         });
 
