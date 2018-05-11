@@ -2,7 +2,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import * as conventions from './conventions'
+// import * as conventions from './conventions'
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -24,16 +24,33 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         let doc=editor.document;
-        doc.
+        let eqOperatorIndex=0;
+        let line=doc.lineAt(0).text;
+        
+        editor.edit(e=>{
+            let op="=";
+            eqOperatorIndex=line.indexOf("=");      
 
-        let lineCount=doc.lineCount;
-        for (let i=0;i<lineCount;i++){
-            let lineText=doc.lineAt(i);
-            console.log(lineText.text);
-        }
+            //Check if the operator has a space in front of it
+            let range=new vscode.Range(0,eqOperatorIndex,0,eqOperatorIndex+1);
+            let bef=doc.getText(range);            
+            op=bef !== " " ? ` ${op}` : op;
+
+            //Read line again
+            line=doc.lineAt(0).text;
+            range=new vscode.Range(0,eqOperatorIndex+1,0,eqOperatorIndex+2);
+            let aft=doc.getText(range);
+
+            op= aft !== " " ? `${op} ` : op;
+
+            if (op!=="="){
+                range=new vscode.Range(0,eqOperatorIndex,0,eqOperatorIndex+1);
+                e.replace(range,op);                
+            }
+        });
 
         // Display a message box to the user
-        vscode.window.showInformationMessage(`Total lines in the current file ${lineCount}`);
+        vscode.window.showInformationMessage(`Total lines in the current file ${eqOperatorIndex}`);
     });
 
     context.subscriptions.push(disposable);
