@@ -8,8 +8,8 @@ import * as opr from './operators';
 const fillWhiteSpace=( lineInfo:LineInfo,opIndex:number,operator:string )=>{
     let opLen=operator.length;
     let preCheck={
-        start:opIndex,
-        end:opIndex+opLen+1
+        start:opIndex-1,
+        end:opIndex+1
     };
     let postCheck={
         start:opIndex+1,

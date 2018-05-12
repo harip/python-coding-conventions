@@ -2,7 +2,7 @@
 
 import * as oc from './operatorconventions';
 import {LineInfo} from './linedata';
-import * as opr from './operators'
+import * as opr from './operators';
 
 export const getConventions=(lineInfo:LineInfo)=>{
     // Apply operator conventions    
