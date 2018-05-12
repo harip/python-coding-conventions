@@ -2,8 +2,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import * as conv from './conventions'
-import {LineInfo,ReplacementInfo} from './linedata'
+import * as conv from './conventions';
+import {LineInfo,ReplacementInfo} from './linedata';
  // import * as conventions from './conventions'
 
 // this method is called when your extension is activated
@@ -35,14 +35,17 @@ export function activate(context: vscode.ExtensionContext) {
             lineInfo.Text=lineInfo.Editor.document.lineAt(lineInfo.LineNum).text;
 
             // Get all replacements
-            replacements=conv.getConventions(lineInfo);
+            if (lineInfo.Text.trim().length>0){
+                let r=conv.getConventions(lineInfo);
+                replacements=replacements.concat(r);
+            }            
         }
 
         editor.edit(e=>{
 
             replacements.forEach(r=>{
-                let range=new vscode.Range(0,r.Postion,0,r.Postion+1);
-                //e.replace(range,op);
+                let range=new vscode.Range(r.LineNum,r.Postion,r.LineNum,r.Postion+1);
+                e.replace(range,r.Replacement);
             });
 
         })

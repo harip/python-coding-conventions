@@ -3,6 +3,7 @@ export const getAllOccurences=(operator:string,line:string)=>{
     let idx=line.indexOf(operator);
     while (idx!==-1){
         operatorLocations.push(idx);
+        idx = line.indexOf(operator, idx + 1);
     }
     return operatorLocations;
 };

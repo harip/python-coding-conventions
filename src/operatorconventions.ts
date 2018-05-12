@@ -4,7 +4,6 @@ import * as vscode from "vscode";
 import {getAllOccurences} from './postion'
 import {LineInfo,ReplacementInfo} from './linedata'
 
-
 const operators=["="];
 
 const fillWhiteSpace=( lineInfo:LineInfo,opIndex:number,operator:string )=>{
@@ -35,17 +34,4 @@ export let operatorWhiteSpace=(lineInfo:LineInfo)=>{
         });
     });
     return replacements;
-
-    // editor.edit(e=>{
-        
-    //     // Iterate each operator
-    //     operators.forEach((op)=>{
-    //         //Get all indexes of the operator in that line
-    //         let allOccurences=getAllOccurences(op,line);
-
-    //         allOccurences.forEach(element => {
-                
-    //         });
-    //     });
-    // });
 }
