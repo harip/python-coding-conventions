@@ -1,8 +1,9 @@
 'use strict';
 
 import * as vscode from "vscode";
-import {getAllOccurences} from './postion'
-import {LineInfo,ReplacementInfo} from './linedata'
+import {getAllOccurences} from './postion';
+import {LineInfo,ReplacementInfo} from './linedata';
+import * as opr from './operators';
 
 const fillWhiteSpace=( lineInfo:LineInfo,opIndex:number,operator:string )=>{
     let opLen=operator.length;
@@ -17,13 +18,22 @@ const fillWhiteSpace=( lineInfo:LineInfo,opIndex:number,operator:string )=>{
 
     // Add empty space before the operator if it is missing
     let range=new vscode.Range(lineInfo.LineNum,preCheck.start,lineInfo.LineNum,preCheck.end);
-    let bef=lineInfo.Editor.document.getText(range);   
-    let op=bef !== " " ? ` ${operator}` : operator;
+    let bef=lineInfo.Editor.document.getText(range);
+    
+    // Make sure the bef+operator is not a double operator
+    let isDoubleOperator=opr.doubleOperators.findIndex((elem)=>{
+        return elem===`${bef}${operator}`;
+    });
+    let op= (bef !== " " && isDoubleOperator===-1 )  ? ` ${operator}` : operator;
 
     // Add empty space after the operator if it is missing        
     range=new vscode.Range(lineInfo.LineNum,postCheck.start,lineInfo.LineNum,postCheck.end);
     let aft=lineInfo.Editor.document.getText(range);
-    op= aft !== " " ? `${op} ` : op;
+    isDoubleOperator=opr.doubleOperators.findIndex((elem)=>{
+        return elem===`${operator}${aft}`;
+    });
+
+    op= (aft !== " " && isDoubleOperator===-1) ? `${op} ` : op;
 
     return op!==operator ? op : null;
 };
