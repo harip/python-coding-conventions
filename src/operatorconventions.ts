@@ -4,23 +4,31 @@ import * as vscode from "vscode";
 import {getAllOccurences} from './postion'
 import {LineInfo,ReplacementInfo} from './linedata'
 
-const operators=["="];
-
 const fillWhiteSpace=( lineInfo:LineInfo,opIndex:number,operator:string )=>{
+    let opLen=operator.length;
+    let preCheck={
+        start:opIndex,
+        end:opIndex+opLen+1
+    };
+    let postCheck={
+        start:opIndex+1,
+        end:opIndex+opLen+2
+    };
+
     // Add empty space before the operator if it is missing
-    let range=new vscode.Range(lineInfo.LineNum,opIndex,lineInfo.LineNum,opIndex+1);
+    let range=new vscode.Range(lineInfo.LineNum,preCheck.start,lineInfo.LineNum,preCheck.end);
     let bef=lineInfo.Editor.document.getText(range);   
     let op=bef !== " " ? ` ${operator}` : operator;
 
     // Add empty space after the operator if it is missing        
-    range=new vscode.Range(lineInfo.LineNum,opIndex+1,lineInfo.LineNum,opIndex+2);
+    range=new vscode.Range(lineInfo.LineNum,postCheck.start,lineInfo.LineNum,postCheck.end);
     let aft=lineInfo.Editor.document.getText(range);
     op= aft !== " " ? `${op} ` : op;
 
     return op!==operator ? op : null;
 };
 
-export let operatorWhiteSpace=(lineInfo:LineInfo)=>{
+export let operatorWhiteSpace=(lineInfo:LineInfo,operators:string[])=>{
     let replacements: ReplacementInfo[]=[];
     // First get the line data
     operators.forEach((op)=>{
@@ -29,9 +37,9 @@ export let operatorWhiteSpace=(lineInfo:LineInfo)=>{
         allOccurences.forEach(idx => {            
             let replacement=fillWhiteSpace(lineInfo,idx,op);
             if (replacement !==null){
-                replacements.push(new ReplacementInfo(idx,replacement,lineInfo.LineNum));
+                replacements.push(new ReplacementInfo(idx,idx+op.length,replacement,lineInfo.LineNum));
             }
         });
     });
     return replacements;
-}
+};

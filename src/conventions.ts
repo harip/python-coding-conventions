@@ -5,7 +5,8 @@ import {LineInfo} from './linedata';
 
 export const getConventions=(lineInfo:LineInfo)=>{
     // Apply operator conventions
-    let operatorsReplacements=oc.operatorWhiteSpace(lineInfo);
+    const operators=["=","+"];
+    let operatorsReplacements=oc.operatorWhiteSpace(lineInfo,operators);
 
     return operatorsReplacements;
 };

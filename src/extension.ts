@@ -42,15 +42,11 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         editor.edit(e=>{
-
             replacements.forEach(r=>{
-                let range=new vscode.Range(r.LineNum,r.Postion,r.LineNum,r.Postion+1);
+                let range=new vscode.Range(r.LineNum,r.Postion,r.LineNum,r.EndPosition);
                 e.replace(range,r.Replacement);
             });
-
-        })
-        // Display a message box to the user
-        // vscode.window.showInformationMessage(`Total lines in the current file ${eqOperatorIndex}`);
+        });
     });
 
     context.subscriptions.push(disposable);
