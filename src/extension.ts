@@ -2,7 +2,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-// import * as conventions from './conventions'
+import * as conv from './conventions'
+import {LineInfo,ReplacementInfo} from './linedata'
+ // import * as conventions from './conventions'
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -23,35 +25,29 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        let doc=editor.document;
-        let eqOperatorIndex=0;
-        let line=doc.lineAt(0).text;
-        
+        // Get line count
+        let lineCount=editor.document.lineCount;
+        let lineInfo=new LineInfo("",0,editor);
+        let replacements: ReplacementInfo[]=[];
+        for (let linNum=0;linNum<lineCount;linNum++){
+            // Get line 
+            lineInfo.LineNum=linNum;
+            lineInfo.Text=lineInfo.Editor.document.lineAt(lineInfo.LineNum).text;
+
+            // Get all replacements
+            replacements=conv.getConventions(lineInfo);
+        }
+
         editor.edit(e=>{
-            let op="=";
-            eqOperatorIndex=line.indexOf("=");      
 
-            //Check if the operator has a space in front of it
-            let range=new vscode.Range(0,eqOperatorIndex,0,eqOperatorIndex+1);
-            let bef=doc.getText(range);            
-            op=bef !== " " ? ` ${op}` : op;
+            replacements.forEach(r=>{
+                let range=new vscode.Range(0,r.Postion,0,r.Postion+1);
+                //e.replace(range,op);
+            });
 
-            //Read line again
-            line=doc.lineAt(0).text;
-            range=new vscode.Range(0,eqOperatorIndex+1,0,eqOperatorIndex+2);
-            let aft=doc.getText(range);
-
-            op= aft !== " " ? `${op} ` : op;
-
-            if (op!=="="){
-                range=new vscode.Range(0,eqOperatorIndex,0,eqOperatorIndex+1);
-                e.replace(range,op);       
-                line=doc.lineAt(0).text;         
-            }
-        });
-
+        })
         // Display a message box to the user
-        vscode.window.showInformationMessage(`Total lines in the current file ${eqOperatorIndex}`);
+        // vscode.window.showInformationMessage(`Total lines in the current file ${eqOperatorIndex}`);
     });
 
     context.subscriptions.push(disposable);
