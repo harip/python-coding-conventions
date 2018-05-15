@@ -6,7 +6,7 @@ enum ApplySpaces {
 }
 
 // Order is important
-export const exportAllOperators=()=>{
+export const exportAllOperators=():Map<string,any>=>{
     //A Map object iterates its elements in insertion order
     var m = new Map();
     m.set("===",{Space:ApplySpaces.Both});
