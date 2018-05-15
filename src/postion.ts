@@ -1,5 +1,6 @@
 import {ReplacementInfo} from './linedata';
 
+// Find all occurences of an operator in text
 export const getAllOccurences=(operator:string,line:string):number[]=>{
     let operatorLocations=[];
     let idx=line.indexOf(operator);
@@ -10,6 +11,7 @@ export const getAllOccurences=(operator:string,line:string):number[]=>{
     return operatorLocations;
 };
 
+// If the line is searched for ==, === will also be counted, this function avoids that
 export const getReplacementInfo=(idx:number,op:string,replacements:ReplacementInfo[])=>{
     let start=idx+1;
     let end=idx+op.length;
