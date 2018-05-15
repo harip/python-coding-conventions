@@ -3,8 +3,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as conv from './conventions';
-import {LineInfo} from './linedata';
- // import * as conventions from './conventions'
+import {LineInfo, ReplacementInfo} from './linedata';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -27,26 +26,28 @@ export function activate(context: vscode.ExtensionContext) {
 
         // Get line count
         let lineCount=editor.document.lineCount;
-        let lineInfo=new LineInfo("",0,editor);
-        //let replacements: ReplacementInfo[]=[];
+        let lineInfo=new LineInfo("",0);
+        let replacements: ReplacementInfo[]=[];
         for (let linNum=0;linNum<lineCount;linNum++){
             // Get line 
             lineInfo.LineNum=linNum;
-            lineInfo.Text=lineInfo.Editor.document.lineAt(lineInfo.LineNum).text;
+            lineInfo.Text=editor.document.lineAt(lineInfo.LineNum).text;
 
             // Get all replacements
             if (lineInfo.Text.trim().length>0){
-                conv.getConventions(lineInfo);
-                // replacements=replacements.concat(r);
+                let r=conv.getConventions(lineInfo);
+                replacements=replacements.concat(r);
             }            
         }
 
-        // editor.edit(e=>{
-        //     replacements.forEach(r=>{
-        //         let range=new vscode.Range(r.LineNum,r.Postion,r.LineNum,r.EndPosition);
-        //         e.replace(range,r.Replacement);
-        //     });
-        // });
+        // Filter for nulls
+        replacements=replacements.filter(r=>r.Operator!=="");
+        editor.edit(e=>{
+            replacements.forEach(r=>{
+                let range=new vscode.Range(r.lineNum,r.Start-1,r.lineNum,r.End);
+                e.replace(range,r.Operator);
+            });
+        });
     });
 
     context.subscriptions.push(disposable);

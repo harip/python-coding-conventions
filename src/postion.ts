@@ -38,13 +38,13 @@ export const addSpaces=(r:ReplacementInfo,lineText:string):string=>{
         : repl.Space;
 
     let orgText=r.Operator;    
-    if (replSpace===opr.ApplySpaces.Left){
-        let befText=r.Text.substr(r.Start-1,1);
+    if ((replSpace & opr.ApplySpaces.Left)===opr.ApplySpaces.Left){
+        let befText=r.Text.substr(r.Start-2,1);
         orgText = (befText !== " ") ? ` ${orgText}` : orgText;
     }
 
-    if (replSpace===opr.ApplySpaces.Right){
-        let aftText=r.Text.substr(r.Start+1,r.End+1);
+    if ((replSpace & opr.ApplySpaces.Right)===opr.ApplySpaces.Right){
+        let aftText=r.Text.substr(r.End,1);
         orgText = (aftText !== " ") ? `${orgText} ` : orgText;
     }
 
