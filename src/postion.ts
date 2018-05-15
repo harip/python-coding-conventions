@@ -1,25 +1,27 @@
-// import * as opr from './operators'; 
+import {ReplacementInfo} from './linedata';
 
-// export const getAllOccurences=(operator:string,line:string)=>{
-//     let operatorLocations=[];
-//     let idx=line.indexOf(operator);
-//     while (idx!==-1){
-//         // Get the next element
-//         let nextElem=line.substr(idx,1);
-//         let isMultiOperator=opr.doubleOperators.findIndex((e)=>{
-//             return e===nextElem;
-//         })
+export const getAllOccurences=(operator:string,line:string):number[]=>{
+    let operatorLocations=[];
+    let idx=line.indexOf(operator);
+    while (idx!==-1){
+        operatorLocations.push(idx);
+        idx = line.indexOf(operator, idx + operator.length);
+    }
+    return operatorLocations;
+};
 
-//         if (isMultiOperator!==-1){
-//             // Its like ==
-//             // Skip this
-//             operatorLocations.push(idx);
-//             idx = line.indexOf(operator, idx + 2);
-//         }   
-//         else{
-//             operatorLocations.push(idx);
-//             idx = line.indexOf(operator, idx + 1);
-//         } 
-//     }
-//     return operatorLocations;
-// };
+export const getReplacementInfo=(idx:number,op:string,replacements:ReplacementInfo[])=>{
+    let start=idx+1;
+    let end=idx+op.length;
+
+    let existingIndex= replacements.findIndex( r=>{
+        return start>=r.Start && end<=r.End;
+    });
+    if (existingIndex!==-1){
+        return;
+    }
+    return {
+        Start:start,
+        End:end
+    };
+};

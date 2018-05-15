@@ -3,7 +3,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as conv from './conventions';
-import {LineInfo,ReplacementInfo} from './linedata';
+import {LineInfo} from './linedata';
  // import * as conventions from './conventions'
 
 // this method is called when your extension is activated
@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
         // Get line count
         let lineCount=editor.document.lineCount;
         let lineInfo=new LineInfo("",0,editor);
-        let replacements: ReplacementInfo[]=[];
+        //let replacements: ReplacementInfo[]=[];
         for (let linNum=0;linNum<lineCount;linNum++){
             // Get line 
             lineInfo.LineNum=linNum;
@@ -36,8 +36,8 @@ export function activate(context: vscode.ExtensionContext) {
 
             // Get all replacements
             if (lineInfo.Text.trim().length>0){
-                let r=conv.getConventions(lineInfo);
-                replacements=replacements.concat(r);
+                conv.getConventions(lineInfo);
+                // replacements=replacements.concat(r);
             }            
         }
 
