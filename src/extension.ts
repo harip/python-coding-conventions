@@ -41,12 +41,12 @@ export function activate(context: vscode.ExtensionContext) {
             }            
         }
 
-        editor.edit(e=>{
-            replacements.forEach(r=>{
-                let range=new vscode.Range(r.LineNum,r.Postion,r.LineNum,r.EndPosition);
-                e.replace(range,r.Replacement);
-            });
-        });
+        // editor.edit(e=>{
+        //     replacements.forEach(r=>{
+        //         let range=new vscode.Range(r.LineNum,r.Postion,r.LineNum,r.EndPosition);
+        //         e.replace(range,r.Replacement);
+        //     });
+        // });
     });
 
     context.subscriptions.push(disposable);
