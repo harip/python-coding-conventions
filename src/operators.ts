@@ -14,6 +14,8 @@ export const exportAllOperators=():Map<string,any>=>{
     m.set(">=", {Space:ApplySpaces.Both});
     m.set("<=", {Space:ApplySpaces.Both});
     m.set("++", {Space:ApplySpaces.Both});
+    m.set("+=", {Space:ApplySpaces.Both});
+    m.set("=+", {Space:ApplySpaces.Both});
     m.set("--", {Space:ApplySpaces.Both});
     m.set("!=", {Space:ApplySpaces.Both});
     m.set(",",  {Space:ApplySpaces.Right});
