@@ -1,4 +1,5 @@
 import {ReplacementInfo} from './linedata';
+import * as opr from './operators';
 
 // Find all occurences of an operator in text
 export const getAllOccurences=(operator:string,line:string):number[]=>{
@@ -26,4 +27,29 @@ export const getReplacementInfo=(idx:number,op:string,replacements:ReplacementIn
         Start:start,
         End:end
     };
+};
+
+// Function that determines where to add space
+export const addSpaces=(r:ReplacementInfo,lineText:string):string=>{
+    // Get map
+    let repl= opr.exportAllOperators().get(r.Operator);
+    let replSpace= repl.Space===opr.ApplySpaces.Both 
+        ? opr.ApplySpaces.Left | opr.ApplySpaces.Right
+        : repl.Space;
+
+    let orgText=r.Operator;    
+    if (replSpace===opr.ApplySpaces.Left){
+        let befText=r.Text.substr(r.Start-1,1);
+        orgText = (befText !== " ") ? ` ${orgText}` : orgText;
+    }
+
+    if (replSpace===opr.ApplySpaces.Right){
+        let aftText=r.Text.substr(r.Start+1,r.End+1);
+        orgText = (aftText !== " ") ? `${orgText} ` : orgText;
+    }
+
+    if (orgText===r.Operator){
+        return "";
+    }
+    return orgText;
 };

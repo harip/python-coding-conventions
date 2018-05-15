@@ -1,8 +1,7 @@
-enum ApplySpaces {
-    None=0,
-    Both,
-    Left,
-    Right
+export enum ApplySpaces {
+    Left =1 << 0,
+    Right = 1 << 1,
+    Both = 1 << 2
 }
 
 // Order is important
