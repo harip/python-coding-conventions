@@ -4,6 +4,7 @@ vscode extension for python files that applies some of the extensions based on [
 
 Applied conventions
 - White space in expressions (===,!==,==,>=,<=,++,+=,=+,--,!=,=,+,<,> and comma)
+- The command does not auto save, CTRL+Z (Windows) will revert the changes made by the command
 
 ![Print References](https://res.cloudinary.com/harip/image/upload/v1526440387/general/oN0nK1cQJw.gif)
 
