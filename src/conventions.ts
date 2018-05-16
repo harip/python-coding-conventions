@@ -1,6 +1,5 @@
 'use strict';
 
-// import * as oc from './operatorconventions';
 import {LineInfo, ReplacementInfo} from './linedata';
 import * as opr from './operators';
 import * as pos from './postion';
