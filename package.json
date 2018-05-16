@@ -3,12 +3,20 @@
     "displayName": "Python Coding Conventions",
     "description": "Apply python coding conventions",
     "version": "0.0.1",
+    "icon": "icon.png",
+    "galleryBanner": {
+        "color": "#C80000",
+        "theme": "dark"
+    },
     "publisher": "igress",
     "engines": {
         "vscode": "^1.23.0"
     },
+    "author": {
+        "name": "igress"
+    },
     "categories": [
-        "Other"
+        "Formatters","Programming Languages"
     ],
     "activationEvents": [
         "onCommand:extension.applyConventions"
@@ -35,5 +43,9 @@
         "tslint": "^5.8.0",
         "@types/node": "^7.0.43",
         "@types/mocha": "^2.2.42"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/harip/python-coding-conventions"
     }
 }
