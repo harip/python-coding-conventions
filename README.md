@@ -1,6 +1,6 @@
 # python-coding-conventions
 
-vscode extension for python files that applies some of the extensions based on [`PEP 8 -- Style Guide for Python Code`](https://www.python.org/dev/peps/pep-0008/).
+[`Visual Studio Code`](https://marketplace.visualstudio.com/items?itemName=igress.python-coding-conventions) extension for python files that applies some of the extensions based on [`PEP 8 -- Style Guide for Python Code`](https://www.python.org/dev/peps/pep-0008/).
 
 Applied conventions
 - White space in expressions (===,!==,==,>=,<=,++,+=,=+,--,!=,=,+,<,> and comma)
