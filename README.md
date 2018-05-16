@@ -6,7 +6,7 @@ Applied conventions
 - White space in expressions (===,!==,==,>=,<=,++,+=,=+,--,!=,=,+,<,> and comma)
 - The command does not auto save, CTRL+Z (Windows) will revert the changes made by the command
 
-![Print References](http://res.cloudinary.com/harip/image/upload/v1526446520/general/oN0nK1cQJw.gif)
+![Print References](https://res.cloudinary.com/harip/image/upload/v1526446520/general/oN0nK1cQJw.gif)
 
 
 # How to run locally
