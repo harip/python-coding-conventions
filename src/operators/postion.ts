@@ -1,4 +1,4 @@
-import {ReplacementInfo, LineInfo} from '../linedata';
+import {ReplacementInfo, LineInfo} from '../models/linedata';
 import * as opr from '../operators/operatorslist';
 
 // Find all occurences of an operator in text

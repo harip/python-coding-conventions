@@ -1,6 +1,6 @@
 // The module 'assert' provides assertion methods from node
 import * as assert from 'assert';
-import {LineInfo} from '../linedata';
+import {LineInfo} from '../models/linedata';
 import * as conv from '../conventions';
 
 // Defines a Mocha test suite to group tests of similar kind together

@@ -1,6 +1,6 @@
 'use strict';
 
-import {LineInfo, ReplacementInfo} from './linedata';
+import {ReplacementInfo, LineInfo} from './models/linedata';
 import * as oprConv from './operators/postion';
 import * as bcConv from './comments/blockcomments'
  

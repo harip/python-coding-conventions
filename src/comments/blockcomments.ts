@@ -1,4 +1,4 @@
-import {ReplacementInfo, LineInfo} from '../linedata';
+import {ReplacementInfo, LineInfo} from '../models/linedata';
 
 export const applyBlockCommentConvention=(lineInfo:LineInfo):any=>{
     if (!lineInfo.Text.startsWith("#")){
@@ -9,6 +9,6 @@ export const applyBlockCommentConvention=(lineInfo:LineInfo):any=>{
         return {IsComment:true,ReplacementInfo:null};
     }
 
-    const rInfo=new ReplacementInfo(0,1,"# ",lineInfo.Text,lineInfo.LineNum);
+    const rInfo=new ReplacementInfo(1,1,"# ",lineInfo.Text,lineInfo.LineNum);
     return {IsComment:true,ReplacementInfo:rInfo};
-}
+};
