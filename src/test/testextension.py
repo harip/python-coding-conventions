@@ -5,3 +5,4 @@ def test_math(a,b,c):
     if (a==b){
         z=1
     }
+    c=(a+b)*(a-b)

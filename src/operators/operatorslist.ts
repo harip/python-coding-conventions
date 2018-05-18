@@ -20,7 +20,6 @@ export const exportAllOperators=():Map<string,any>=>{
     m.set("!=", {Space:ApplySpaces.Both});
     m.set(",",  {Space:ApplySpaces.Right});
     m.set("=",  {Space:ApplySpaces.Both});
-    m.set("+",  {Space:ApplySpaces.Both});
     m.set("<",  {Space:ApplySpaces.Both});
     m.set(">",  {Space:ApplySpaces.Both});
     return m;
