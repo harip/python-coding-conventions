@@ -1,8 +1,8 @@
-import {ReplacementInfo} from './linedata';
-import * as opr from './operators';
+import {ReplacementInfo, LineInfo} from '../linedata';
+import * as opr from '../operators/operatorslist';
 
 // Find all occurences of an operator in text
-export const getAllOccurences=(operator:string,line:string):number[]=>{
+const getAllOccurences=(operator:string,line:string):number[]=>{
     let operatorLocations=[];
     let idx=line.indexOf(operator);
     while (idx!==-1){
@@ -13,7 +13,7 @@ export const getAllOccurences=(operator:string,line:string):number[]=>{
 };
 
 // If the line is searched for ==, === will also be counted, this function avoids that
-export const getReplacementInfo=(idx:number,op:string,replacements:ReplacementInfo[])=>{
+const getReplacementInfo=(idx:number,op:string,replacements:ReplacementInfo[])=>{
     let start=idx+1;
     let end=idx+op.length;
 
@@ -30,7 +30,7 @@ export const getReplacementInfo=(idx:number,op:string,replacements:ReplacementIn
 };
 
 // Function that determines where to add space
-export const addSpaces=(r:ReplacementInfo,lineText:string):string=>{
+const addSpaces=(r:ReplacementInfo):string=>{
     // Get map
     let repl= opr.exportAllOperators().get(r.Operator);
     let replSpace= repl.Space===opr.ApplySpaces.Both 
@@ -53,3 +53,26 @@ export const addSpaces=(r:ReplacementInfo,lineText:string):string=>{
     }
     return orgText;
 };
+
+export const applyOperatorConventions=(lineInfo:LineInfo):ReplacementInfo[]=>{
+    let replacements: ReplacementInfo[]=[];
+    let operators=opr.exportAllOperators();
+    operators.forEach( (v,op)=>{
+        // Find all occurences of the operator and return index positions
+        var allIdx=getAllOccurences(op,lineInfo.Text);
+        // Evaluate each index position
+        allIdx.forEach(idx=>{
+            let opPos=getReplacementInfo(idx,op,replacements);
+            if (!opPos){
+                return;
+            }
+            replacements.push(new ReplacementInfo(opPos.Start,opPos.End,op,lineInfo.Text,lineInfo.LineNum));
+        });
+    });
+    // Now check for spaces and apply them
+    replacements.forEach(r=>{
+        r.Operator=addSpaces(r);
+    });   
+    return replacements;
+};
+
