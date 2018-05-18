@@ -4,6 +4,6 @@ export class LineInfo {
 }
 
 export class ReplacementInfo{
-    constructor(public Start:number, public End:number, public Operator:string,public Text:string,public lineNum:number=0) { 
+    constructor(public Start:number=0, public End:number=0, public Operator:string="",public Text:string="",public lineNum:number=0) { 
     }
 }

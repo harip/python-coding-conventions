@@ -16,7 +16,8 @@
         "name": "igress"
     },
     "categories": [
-        "Formatters","Programming Languages"
+        "Formatters",
+        "Programming Languages"
     ],
     "activationEvents": [
         "onCommand:extension.applyConventions"
@@ -47,5 +48,8 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/harip/python-coding-conventions"
+    },
+    "dependencies": {
+        "decamelize": "^2.0.0"
     }
 }
