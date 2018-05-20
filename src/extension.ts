@@ -47,7 +47,10 @@ export function activate(context: vscode.ExtensionContext) {
                 let range=new vscode.Range(r.lineNum,r.Start-1,r.lineNum,r.End);
                 e.replace(range,r.Operator);
             });
-        });
+        }).then(
+            val=>{console.log(val)},
+            err=>{console.log(err)}
+        );
     });
 
     context.subscriptions.push(disposable);

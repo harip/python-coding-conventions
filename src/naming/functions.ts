@@ -11,7 +11,7 @@ export const applyFunctionNaming = (lineInfo:LineInfo):ReplacementInfo => {
     // Get function name
     // Get data after def and before (
     let defLoc = lineInfo.Text.indexOf(funcSign);
-    let funcOpening = lineInfo.Text.indexOf(":");   
+    let funcOpening = lineInfo.Text.indexOf("(");   
     let funcName = lineInfo.Text.substring(defLoc+funcLen, funcOpening);
     let mod_funcName = decamelize(funcName);
 
